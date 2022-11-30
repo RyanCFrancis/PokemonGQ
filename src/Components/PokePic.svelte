@@ -4,7 +4,7 @@
 
   export let srcLink: string;
 
-  $: activeClass = isVis ? "visible" : "hidden";
+  let activeClass = isVis ? "visible" : "hidden";
 </script>
 
 <div class="cont">

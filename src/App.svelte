@@ -1,5 +1,5 @@
 <script lang="ts">
-  import NamePKMN, { pokeName } from "./Components/NamePKMN.svelte";
+  import NamePKMN from "./Components/NamePKMN.svelte";
   import PokePic from "./Components/PokePic.svelte";
 
   import { onMount } from "svelte";
@@ -121,7 +121,8 @@
       }}>Next Pokemon</button
     >
   </div>
-  {#key dexFound}
+
+  {#key answer}
     <NamePKMN pokeName={answer} />
   {/key}
 </main>
