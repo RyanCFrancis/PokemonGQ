@@ -48,7 +48,7 @@
 
   onMount(async () => {
     dexNum = Math.floor(Math.random() * dexMax);
-    getNext();
+    getPKMNData();
   });
   function getPKMNData() {
     //link of the api as a string
@@ -122,8 +122,11 @@
     >
   </div>
 
-  {#key answer}
-    <NamePKMN pokeName={answer} />
+  <!-- really messy way to update -->
+  {#key isGuessed}
+    {#key answer}
+      <NamePKMN pokeName={answer} isG={isGuessed} gCount={guessCount} />
+    {/key}
   {/key}
 </main>
 
