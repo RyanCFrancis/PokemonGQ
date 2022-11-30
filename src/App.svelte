@@ -99,14 +99,14 @@
 <main>
   <PokePic isVis={isGuessed} srcLink={picLink} />
   <div class="sidebar">
+    <p>Score: {playerScore}</p>
+    <p>Guesses Left: {guessCount}</p>
     <input
       placeholder="Enter PKMN Name Here"
       class="textbox"
       bind:value={currentGuess}
       on:keydown={onEnter}
     />
-    <p>Score: {playerScore}</p>
-    <p>Guesses Left: {guessCount}</p>
 
     <button
       class="Button sub"
@@ -114,6 +114,8 @@
         checkPKM(currentGuess);
       }}>Submit</button
     >
+    <!-- hints go here -->
+
     <button
       class="Button refresh"
       on:click={() => {
@@ -132,10 +134,6 @@
 
 <style>
   .textbox {
-    position: absolute;
-    left: 2.5%;
-    top: 5%;
-    width: auto;
   }
 
   .Button {
@@ -150,15 +148,15 @@
   }
 
   .Button.sub {
-    position: absolute;
+    /* position: absolute;
     left: 2.5%;
-    top: 50%;
+    top: 50%; */
     width: auto;
   }
   .Button.refresh {
-    position: absolute;
+    /* position: absolute;
     left: 2.5%;
-    top: 90%;
+    top: 90%; */
     width: auto;
   }
 
@@ -167,11 +165,12 @@
     top: 0;
     left: 0;
     height: 100%;
+    display: inline-block;
 
     border-right: 1px solid rgb(0, 0, 0);
     background: rgb(161, 44, 44);
     overflow-y: auto;
-    width: 30vw;
+    width: 25vw;
     min-width: 100px;
   }
 </style>

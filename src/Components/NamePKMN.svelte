@@ -19,7 +19,7 @@
 
     if (isG) {
       hintStr = pokeName;
-      console.log("huh");
+
       return;
     }
     for (let i = 0; i < pokeName.length; i++) {
