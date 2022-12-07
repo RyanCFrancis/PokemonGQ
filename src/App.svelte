@@ -11,6 +11,7 @@
   //the name of the pokemon to guess
   let answer: string;
   let currentGuess: string;
+  let quizCount = 0;
   let guessCount = 10;
   //pokedex number of the pokemon
   let dexNum: number;
@@ -28,6 +29,13 @@
 
   function getNext() {
     playerScore += currScore;
+    let alertSTR = "You beat the game with a score of:" + playerScore;
+    quizCount++;
+
+    if (quizCount >= 5) {
+      alert(alertSTR);
+    }
+
     let tempNum = Math.floor(Math.random() * dexMax);
     //check if the same pokemon is picked and pick a new one
     if (tempNum == dexNum) {
@@ -97,7 +105,6 @@
 </script>
 
 <main>
-  <PokePic isVis={isGuessed} srcLink={picLink} />
   <div class="sidebar">
     <p>Score: {playerScore}</p>
     <p>Guesses Left: {guessCount}</p>
@@ -107,7 +114,7 @@
       bind:value={currentGuess}
       on:keydown={onEnter}
     />
-
+    <div style="width:100%; margin:2%;" />
     <button
       class="Button sub"
       on:click={() => {
@@ -115,7 +122,7 @@
       }}>Submit</button
     >
     <!-- hints go here -->
-
+    <div style="width:100%; margin:2%;" />
     <button
       class="Button refresh"
       on:click={() => {
@@ -123,13 +130,14 @@
       }}>Next Pokemon</button
     >
   </div>
-
-  <!-- really messy way to update -->
-  {#key isGuessed}
-    {#key answer}
-      <NamePKMN pokeName={answer} isG={isGuessed} gCount={guessCount} />
+  <div class="rightSide">
+    <PokePic isVis={isGuessed} srcLink={picLink} />
+    {#key isGuessed}
+      {#key answer}
+        <NamePKMN pokeName={answer} isG={isGuessed} gCount={guessCount} />
+      {/key}
     {/key}
-  {/key}
+  </div>
 </main>
 
 <style>
@@ -158,6 +166,7 @@
     left: 2.5%;
     top: 90%; */
     width: auto;
+    justify-content: end;
   }
 
   .sidebar {
