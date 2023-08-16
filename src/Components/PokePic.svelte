@@ -12,6 +12,7 @@
     src={srcLink}
     alt="Uh Oh! An Error has Occured! Try Refreshing!"
     class="pokepic {activeClass}"
+    draggable="false"
   />
 </div>
 
