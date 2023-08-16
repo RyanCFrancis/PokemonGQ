@@ -1,8 +1,10 @@
 <script lang="ts">
   import NamePKMN from "./Components/NamePKMN.svelte";
   import PokePic from "./Components/PokePic.svelte";
-
+  import PKMNLoader from "./Components/PKMNLoader.svelte";
   import { onMount } from "svelte";
+
+  let PKMNLoaderComp;
 
   let dexFound = false;
 
@@ -27,7 +29,7 @@
 
   //initilize some set of data on page load
 
-  function getNext() {
+  async function getNext() {
     playerScore += currScore;
     let alertSTR = "You beat the game with a score of:" + playerScore;
     quizCount++;
@@ -44,7 +46,7 @@
       }
     }
     dexNum = tempNum;
-    getPKMNData();
+    PKMNLoaderComp.getPKMNData(dexNum);
 
     //reset some values
 
@@ -56,28 +58,12 @@
 
   onMount(async () => {
     dexNum = Math.floor(Math.random() * dexMax);
-    getPKMNData();
+    PKMNLoaderComp.getPKMNData(dexNum);
   });
-  function getPKMNData() {
-    //link of the api as a string
-    let linkSTR: string;
-    linkSTR = "https://pokeapi.co/api/v2/pokemon/" + dexNum;
-    fetch(linkSTR)
-      .then((response) => response.json())
-      .then((poke) => {
-        //set the variables from the API
-        picLink = poke.sprites.front_default;
-        answer = poke.name;
-
-        console.log("the pokemon is:", answer);
-        //console.log(picLink);
-        dexFound = true;
-      });
-  }
 
   function checkPKM(str: string) {
-    //compare when lower case to make it easier
-    str = str.toLowerCase();
+    //compare when lowercase to make it easier
+    str = str.toLowerCase().trim();
 
     if (guessCount <= 0) {
       //code for next mon and popsup saying sorry nice try
@@ -85,19 +71,29 @@
     }
 
     console.log("guess:", str);
-    if (str.includes(answer.toLowerCase())) {
+
+    //const GUESSED_CORRECT: boolean = str.includes(answer.toLowerCase());
+    const GUESSED_CORRECT: boolean = str === answer.toLocaleLowerCase();
+
+    if (GUESSED_CORRECT) {
       //change css of the image to be revealed
       console.log("answer is guessed");
       isGuessed = true;
-      //congratz popup goes here
+      //congrats popup goes here
     }
+
     if (!isGuessed) {
       guessCount--;
       currScore--;
     }
   }
 
+  //global event if enter is pressed page wide
   function onEnter(event: KeyboardEvent) {
+    if (event.key.localeCompare("Enter") === 0 && isGuessed) {
+      getNext();
+    }
+
     if (event.key.localeCompare("Enter") === 0) {
       checkPKM(currentGuess);
     }
@@ -105,6 +101,13 @@
 </script>
 
 <main>
+  <PKMNLoader
+    bind:picLink
+    bind:answer
+    bind:dexFound
+    bind:this={PKMNLoaderComp}
+  />
+
   <div class="sidebar">
     <p>Score: {playerScore}</p>
     <p>Guesses Left: {guessCount}</p>
@@ -141,8 +144,8 @@
 </main>
 
 <style>
-  .textbox {
-  }
+  /* .textbox {
+  } */
 
   .Button {
     background: #000000;

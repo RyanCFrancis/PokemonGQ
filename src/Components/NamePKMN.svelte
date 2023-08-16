@@ -22,6 +22,7 @@
 
       return;
     }
+
     for (let i = 0; i < pokeName.length; i++) {
       hintStr += "_ ";
     }

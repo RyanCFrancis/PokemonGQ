@@ -1,11 +1,19 @@
 <script lang="ts">
+  import PKMNLoader from "./PKMNLoader.svelte";
   export let isVis: boolean;
+  let picLink: string;
+  let answer: string;
+  let dexFound: boolean;
+  //import { getPKMNData } from "../App.svelte";
   isVis = false;
 
   export let srcLink: string;
+  //TODO: ASYNC LOADING WHEN TRANSITIONING TO NEXT POKEMON JPEG
 
   $: activeClass = isVis ? "visible" : "hidden";
 </script>
+
+<PKMNLoader bind:picLink bind:answer bind:dexFound />
 
 <div class="cont">
   <img
