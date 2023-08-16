@@ -13,7 +13,7 @@
   $: activeClass = isVis ? "visible" : "hidden";
 </script>
 
-<PKMNLoader bind:picLink bind:answer bind:dexFound />
+<PKMNLoader bind:picLink bind:answer />
 
 <div class="cont">
   <img

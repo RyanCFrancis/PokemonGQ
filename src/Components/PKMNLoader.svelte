@@ -1,9 +1,11 @@
 <script lang="ts">
+  //image link string from the api
   export let picLink: string;
+  //name of the pokemon to guess
   export let answer: string;
-  export let dexFound: boolean;
+  //true if the api has been reached successfully
 
-  export function getPKMNData(dexNum: number) {
+  export async function getPKMNData(dexNum: number) {
     //link of the api as a string
     let linkSTR: string;
     linkSTR = "https://pokeapi.co/api/v2/pokemon/" + dexNum;
@@ -16,7 +18,6 @@
 
         console.log("the pokemon is:", answer);
         //console.log(picLink);
-        dexFound = true;
       });
   }
 </script>

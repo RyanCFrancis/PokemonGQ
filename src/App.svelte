@@ -6,12 +6,13 @@
 
   let PKMNLoaderComp;
 
-  let dexFound = false;
-
-  let picLink: string;
-  let isGuessed = false;
   //the name of the pokemon to guess
   let answer: string;
+  let dexFound = false;
+  let picLink: string;
+
+  let isGuessed = false;
+
   let currentGuess: string;
   let quizCount = 0;
   let guessCount = 10;
@@ -36,6 +37,7 @@
 
     if (quizCount >= 5) {
       alert(alertSTR);
+      quizCount = 0;
     }
 
     let tempNum = Math.floor(Math.random() * dexMax);
@@ -46,6 +48,7 @@
       }
     }
     dexNum = tempNum;
+
     PKMNLoaderComp.getPKMNData(dexNum);
 
     //reset some values
@@ -101,12 +104,7 @@
 </script>
 
 <main>
-  <PKMNLoader
-    bind:picLink
-    bind:answer
-    bind:dexFound
-    bind:this={PKMNLoaderComp}
-  />
+  <PKMNLoader bind:picLink bind:answer bind:this={PKMNLoaderComp} />
 
   <div class="sidebar">
     <p>Score: {playerScore}</p>
@@ -134,8 +132,8 @@
     >
   </div>
   <div class="rightSide">
-    <PokePic isVis={isGuessed} srcLink={picLink} />
     {#key isGuessed}
+      <PokePic isVis={isGuessed} srcLink={picLink} />
       {#key answer}
         <NamePKMN pokeName={answer} isG={isGuessed} gCount={guessCount} />
       {/key}
