@@ -4,7 +4,8 @@
   import PKMNLoader from "./Components/PKMNLoader.svelte";
   import { onMount } from "svelte";
 
-  let PKMNLoaderComp;
+  let PKMNLoaderComponent;
+  let NamePKMNComponent;
 
   //the name of the pokemon to guess
   let answer: string;
@@ -49,7 +50,7 @@
     }
     dexNum = tempNum;
 
-    PKMNLoaderComp.getPKMNData(dexNum);
+    PKMNLoaderComponent.getPKMNData(dexNum);
 
     //reset some values
 
@@ -61,7 +62,7 @@
 
   onMount(async () => {
     dexNum = Math.floor(Math.random() * dexMax);
-    PKMNLoaderComp.getPKMNData(dexNum);
+    PKMNLoaderComponent.getPKMNData(dexNum);
   });
 
   function checkPKM(str: string) {
@@ -85,6 +86,9 @@
       //congrats popup goes here
     }
 
+    //update hint string
+    NamePKMNComponent.getHintStr();
+
     if (!isGuessed) {
       guessCount--;
       currScore--;
@@ -104,7 +108,7 @@
 </script>
 
 <main>
-  <PKMNLoader bind:picLink bind:answer bind:this={PKMNLoaderComp} />
+  <PKMNLoader bind:picLink bind:answer bind:this={PKMNLoaderComponent} />
 
   <div class="sidebar">
     <p>Score: {playerScore}</p>
@@ -133,10 +137,14 @@
   </div>
   <div class="rightSide">
     {#key isGuessed}
-      <PokePic isVis={isGuessed} srcLink={picLink} />
-      {#key answer}
-        <NamePKMN pokeName={answer} isG={isGuessed} gCount={guessCount} />
-      {/key}
+      <PokePic bind:isVis={isGuessed} srcLink={picLink} />
+    {/key}
+    {#key answer}
+      <NamePKMN
+        pokeName={answer}
+        isG={isGuessed}
+        bind:this={NamePKMNComponent}
+      />
     {/key}
   </div>
 </main>

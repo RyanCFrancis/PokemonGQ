@@ -4,12 +4,13 @@
   //full name of the pokemon
   export let pokeName: string;
   export let isG: boolean;
-  export let gCount: number;
+
   //string to display to the user
   let hintStr = "";
 
-  function getHintStr() {
+  export function getHintStr() {
     //console.log("name in hintstr:", pokeName);
+    console.log("name comp:" + isG);
 
     //bug testing
     if (pokeName === undefined) {
@@ -19,7 +20,6 @@
 
     if (isG) {
       hintStr = pokeName;
-
       return;
     }
 
