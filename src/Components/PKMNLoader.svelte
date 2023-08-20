@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { PKMNLink, PKMNName } from "../store";
+
   //image link string from the api
-  export let picLink: string;
+  let picLink: string;
   //name of the pokemon to guess
-  export let answer: string;
+  let answer: string;
   //true if the api has been reached successfully
 
   export async function getPKMNData(dexNum: number) {
@@ -14,7 +16,9 @@
       .then((poke) => {
         //set the variables from the API
         picLink = poke.sprites.front_default;
+        PKMNLink.set(picLink);
         answer = poke.name;
+        PKMNName.set(answer);
 
         console.log("the pokemon is:", answer);
         //console.log(picLink);

@@ -137,7 +137,7 @@
   </div>
   <div class="rightSide">
     {#key isGuessed}
-      <PokePic bind:isVis={isGuessed} srcLink={picLink} />
+      <PokePic isVis={isGuessed} srcLink={picLink} />
     {/key}
     {#key answer}
       <NamePKMN
