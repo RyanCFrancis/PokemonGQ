@@ -9,7 +9,7 @@
   let hintStr = "";
 
   export function getHintStr() {
-    //console.log("name in hintstr:", pokeName);
+    console.log("name in hintstr:", pokeName);
     console.log("name comp:" + isG);
 
     //bug testing

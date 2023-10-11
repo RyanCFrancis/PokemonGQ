@@ -3,8 +3,9 @@
   import PokePic from "./Components/PokePic.svelte";
   import PKMNLoader from "./Components/PKMNLoader.svelte";
   import { onMount } from "svelte";
+  import { PKMNLink, PKMNName } from "./store";
 
-  let PKMNLoaderComponent;
+  //let PKMNLoaderComponent;
   let NamePKMNComponent;
 
   //the name of the pokemon to guess
@@ -50,7 +51,7 @@
     }
     dexNum = tempNum;
 
-    PKMNLoaderComponent.getPKMNData(dexNum);
+    //PKMNLoaderComponent.getPKMNData(dexNum);
 
     //reset some values
 
@@ -59,10 +60,30 @@
     currentGuess = "";
     currScore = 10;
   }
+  async function getPKMNData(dexNum: number) {
+    //link of the api as a string
+    let linkSTR: string;
+    linkSTR = "https://pokeapi.co/api/v2/pokemon/" + dexNum;
+    fetch(linkSTR)
+      .then((response) => response.json())
+      .then((poke) => {
+        //set the variables from the API
+        picLink = poke.sprites.front_default;
+        PKMNLink.set(picLink);
+        answer = poke.name;
+        PKMNName.set(answer);
+
+        console.log("the pokemon is:", answer);
+        //console.log(picLink);
+      });
+  }
 
   onMount(async () => {
     dexNum = Math.floor(Math.random() * dexMax);
-    PKMNLoaderComponent.getPKMNData(dexNum);
+    getPKMNData(dexNum);
+    //PKMNLoaderComponent.getPKMNData(dexNum);
+    //answer = PKMNLoaderComponent.answer;
+    //picLink = PKMNLoaderComponent.picLink;
   });
 
   function checkPKM(str: string) {
@@ -77,7 +98,7 @@
     console.log("guess:", str);
 
     //const GUESSED_CORRECT: boolean = str.includes(answer.toLowerCase());
-    const GUESSED_CORRECT: boolean = str === answer.toLocaleLowerCase();
+    const GUESSED_CORRECT: boolean = str === answer;
 
     if (GUESSED_CORRECT) {
       //change css of the image to be revealed
@@ -108,7 +129,7 @@
 </script>
 
 <main>
-  <PKMNLoader bind:picLink bind:answer bind:this={PKMNLoaderComponent} />
+  <!-- <PKMNLoader bind:this={PKMNLoaderComponent} /> -->
 
   <div class="sidebar">
     <p>Score: {playerScore}</p>
