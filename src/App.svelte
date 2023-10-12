@@ -39,6 +39,7 @@
     if (quizCount >= 5) {
       alert(alertSTR);
       quizCount = 0;
+      playerScore = 0;
     }
 
     let tempNum = Math.floor(Math.random() * dexMax);
@@ -64,7 +65,7 @@
     //link of the api as a string
     let linkSTR: string;
     linkSTR = "https://pokeapi.co/api/v2/pokemon/" + dexNum;
-    fetch(linkSTR)
+    const response = await fetch(linkSTR)
       .then((response) => response.json())
       .then((poke) => {
         //set the variables from the API
@@ -76,12 +77,13 @@
         console.log("the pokemon is:", answer);
         //console.log(picLink);
       });
+    return response;
   }
 
   onMount(async () => {
     dexNum = Math.floor(Math.random() * dexMax);
-    getPKMNData(dexNum);
-    //NamePKMNComponent.getHintStr();
+    await getPKMNData(dexNum);
+    NamePKMNComponent.getHintStr();
     //PKMNLoaderComponent.getPKMNData(dexNum);
     //answer = PKMNLoaderComponent.answer;
     //picLink = PKMNLoaderComponent.picLink;

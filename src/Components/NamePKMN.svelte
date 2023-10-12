@@ -5,7 +5,7 @@
   //string to display to the user
   let hintStr = "";
 
-  export function getHintStr(guess: String) {
+  export async function getHintStr(guess: String) {
     //hintStr = "";
     var date = new Date();
     console.log(date.getSeconds());
