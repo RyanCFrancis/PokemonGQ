@@ -1,7 +1,6 @@
 <script lang="ts">
   import NamePKMN from "./Components/NamePKMN.svelte";
   import PokePic from "./Components/PokePic.svelte";
-  import PKMNLoader from "./Components/PKMNLoader.svelte";
   import { onMount } from "svelte";
   import { PKMNLink, PKMNName } from "./store";
 
@@ -13,7 +12,7 @@
   let dexFound = false;
   let picLink: string;
 
-  let isGuessed = false;
+  var isGuessed = false;
 
   let currentGuess: string;
   let quizCount = 0;
@@ -52,6 +51,7 @@
     dexNum = tempNum;
 
     //PKMNLoaderComponent.getPKMNData(dexNum);
+    getPKMNData(dexNum);
 
     //reset some values
 
@@ -81,6 +81,7 @@
   onMount(async () => {
     dexNum = Math.floor(Math.random() * dexMax);
     getPKMNData(dexNum);
+    //NamePKMNComponent.getHintStr();
     //PKMNLoaderComponent.getPKMNData(dexNum);
     //answer = PKMNLoaderComponent.answer;
     //picLink = PKMNLoaderComponent.picLink;
@@ -95,20 +96,21 @@
       //correct answer was x
     }
 
-    console.log("guess:", str);
+    console.log("you guessed:", str);
 
     //const GUESSED_CORRECT: boolean = str.includes(answer.toLowerCase());
-    const GUESSED_CORRECT: boolean = str === answer;
+    const GUESSED_CORRECT: boolean = str === answer.toLocaleLowerCase();
 
     if (GUESSED_CORRECT) {
       //change css of the image to be revealed
-      console.log("answer is guessed");
+      //console.log("answer is guessed");
       isGuessed = true;
+      console.log("isg", isGuessed);
       //congrats popup goes here
     }
 
     //update hint string
-    NamePKMNComponent.getHintStr();
+    NamePKMNComponent.getHintStr(str);
 
     if (!isGuessed) {
       guessCount--;
@@ -120,9 +122,7 @@
   function onEnter(event: KeyboardEvent) {
     if (event.key.localeCompare("Enter") === 0 && isGuessed) {
       getNext();
-    }
-
-    if (event.key.localeCompare("Enter") === 0) {
+    } else if (event.key.localeCompare("Enter") === 0) {
       checkPKM(currentGuess);
     }
   }
@@ -157,15 +157,9 @@
     >
   </div>
   <div class="rightSide">
-    {#key isGuessed}
-      <PokePic isVis={isGuessed} srcLink={picLink} />
-    {/key}
+    <PokePic isVis={isGuessed} srcLink={picLink} />
     {#key answer}
-      <NamePKMN
-        pokeName={answer}
-        isG={isGuessed}
-        bind:this={NamePKMNComponent}
-      />
+      <NamePKMN pokeName={answer} bind:this={NamePKMNComponent} />
     {/key}
   </div>
 </main>

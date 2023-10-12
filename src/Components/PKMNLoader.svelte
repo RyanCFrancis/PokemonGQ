@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { PKMNLink, PKMNName } from "../store";
 
   //image link string from the api
@@ -28,4 +28,4 @@
 
 <div />
 
-<style></style>
+<style></style> -->

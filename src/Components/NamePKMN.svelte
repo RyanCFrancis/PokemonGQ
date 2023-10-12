@@ -1,30 +1,27 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
   //full name of the pokemon
   export let pokeName: string;
-  export let isG: boolean;
 
   //string to display to the user
   let hintStr = "";
 
-  export function getHintStr() {
+  export function getHintStr(guess: String) {
+    //hintStr = "";
+    var date = new Date();
+    console.log(date.getSeconds());
     console.log("name in hintstr:", pokeName);
-    console.log("name comp:" + isG);
 
     //bug testing
-    if (pokeName === undefined) {
-      //console.log("failed");
+    if (pokeName == undefined) {
+      console.log("failed");
       return;
-    }
-
-    if (isG) {
+    } else if (guess === pokeName) {
       hintStr = pokeName;
       return;
-    }
-
-    for (let i = 0; i < pokeName.length; i++) {
-      hintStr += "_ ";
+    } else {
+      for (let i = 0; i < pokeName.length; i++) {
+        hintStr += "_ ";
+      }
     }
 
     //remove the extra space at the end
@@ -33,9 +30,9 @@
     console.log("hint:", hintStr);
   }
 
-  onMount(() => {
-    getHintStr();
-  });
+  // onMount(() => {
+  //   getHintStr();
+  // });
 </script>
 
 <div class="textDis">{hintStr}</div>

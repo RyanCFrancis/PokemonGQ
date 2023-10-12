@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PKMNLoader from "./PKMNLoader.svelte";
+  import { PKMNLink, PKMNName } from "../store";
   export let isVis: boolean;
   let picLink: string;
   let answer: string;
@@ -12,8 +12,6 @@
 
   $: activeClass = isVis ? "visible" : "hidden";
 </script>
-
-<PKMNLoader bind:picLink bind:answer />
 
 <div class="cont">
   <img
@@ -41,6 +39,6 @@
   }
 
   .pokepic.visible {
-    filter: brightness(100%);
+    filter: brightness(100%) contrast(100%);
   }
 </style>
