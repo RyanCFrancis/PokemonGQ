@@ -25,7 +25,7 @@
   //score for the current pokemon, starts at 10 and goes down with each incorrect answer.
   let currScore = 10;
 
-  const dexMax = 300;
+  const DEXMAX = 800;
 
   currentGuess = "";
 
@@ -42,11 +42,11 @@
       playerScore = 0;
     }
 
-    let tempNum = Math.floor(Math.random() * dexMax);
+    let tempNum = Math.floor(Math.random() * DEXMAX);
     //check if the same pokemon is picked and pick a new one
     if (tempNum == dexNum) {
       while (tempNum == dexNum) {
-        tempNum = Math.floor(Math.random() * dexMax);
+        tempNum = Math.floor(Math.random() * DEXMAX);
       }
     }
     dexNum = tempNum;
@@ -82,7 +82,7 @@
   }
 
   onMount(async () => {
-    dexNum = Math.floor(Math.random() * dexMax);
+    dexNum = Math.floor(Math.random() * DEXMAX);
     getPKMNData(dexNum);
   });
 
@@ -104,7 +104,7 @@
       //change css of the image to be revealed
       //console.log("answer is guessed");
       isGuessed = true;
-      console.log("isg", isGuessed);
+      //console.log("isg", isGuessed);
       //congrats popup goes here
     }
 
