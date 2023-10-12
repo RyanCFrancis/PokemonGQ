@@ -77,16 +77,13 @@
         console.log("the pokemon is:", answer);
         //console.log(picLink);
       });
+    await NamePKMNComponent.getHintStr();
     return response;
   }
 
   onMount(async () => {
     dexNum = Math.floor(Math.random() * dexMax);
-    await getPKMNData(dexNum);
-    NamePKMNComponent.getHintStr();
-    //PKMNLoaderComponent.getPKMNData(dexNum);
-    //answer = PKMNLoaderComponent.answer;
-    //picLink = PKMNLoaderComponent.picLink;
+    getPKMNData(dexNum);
   });
 
   function checkPKM(str: string) {

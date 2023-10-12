@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   //full name of the pokemon
   export let pokeName: string;
 
@@ -31,7 +32,7 @@
   }
 
   // onMount(() => {
-  //   getHintStr();
+  //   getHintStr("");
   // });
 </script>
 
